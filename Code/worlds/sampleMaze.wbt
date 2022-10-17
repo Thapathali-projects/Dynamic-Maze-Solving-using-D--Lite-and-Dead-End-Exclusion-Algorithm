@@ -1,0 +1,2348 @@
+#VRML_SIM R2020b utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  fieldOfView 1
+  orientation 0.99999999999925 1.0460167855448957e-06 6.370122567573766e-07 4.712391667804126
+  position -0.25366341732346087 14.777451339485179 -1.212406248055053
+  near 0.02
+}
+Background {
+  skyColor [
+    0.15 0.45 1
+  ]
+}
+Robot {
+  translation 0 0.0194224 0
+  rotation 0 -1 0 3.1415
+  children [
+    Display {
+      width 1600
+      height 1600
+    }
+    DEF body Shape {
+      appearance PBRAppearance {
+        baseColor 0.333333 1 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.09 0.011 0.1
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.035 0 0
+      }
+      device [
+        RotationalMotor {
+          name "rightWheel"
+          maxVelocity 50
+        }
+        PositionSensor {
+          name "rightEncoder"
+        }
+      ]
+      endPoint Solid {
+        translation -0.034999999959119885 1.1430978904720928e-05 1.7728649934403394e-06
+        rotation -0.02040068018073958 0.020400551114133785 0.9995837282401123 1.571206358407599
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+              baseColor 1 0 0
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.02
+            }
+          }
+        ]
+        name "wheel2"
+        boundingObject USE wheel
+        physics DEF Physics_wheel Physics {
+          mass 0.25
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.035 0 0
+      }
+      device [
+        RotationalMotor {
+          name "leftWheel"
+          maxVelocity 50
+        }
+        PositionSensor {
+          name "leftEncoder"
+        }
+      ]
+      endPoint Solid {
+        translation 0.03500000003731964 1.0377168789162171e-05 -4.413872881193881e-06
+        rotation -0.02068681173167509 0.020686680854850217 0.9995719669216359 1.5712181246894397
+        children [
+          USE wheel
+        ]
+        name "wheel1"
+        boundingObject USE wheel
+        physics USE Physics_wheel
+      }
+    }
+    BallJoint {
+      jointParameters BallJointParameters {
+        position 1.787124483876304
+        anchor 0 -0.00955 0.035
+      }
+      endPoint Solid {
+        translation 0 -0.00955 0.035
+        rotation 0.4622770780301375 0.05342478339381987 0.8851246780240859 1.9215844233592438
+        children [
+          DEF caster_wheel Shape {
+            appearance PBRAppearance {
+              baseColor 0 0 1
+            }
+            geometry Sphere {
+              radius 0.01
+            }
+          }
+        ]
+        boundingObject USE caster_wheel
+        physics USE Physics_wheel
+      }
+    }
+    BallJoint {
+      jointParameters BallJointParameters {
+        position -0.013904290589656934
+        anchor 0 -0.00955 -0.035
+      }
+      endPoint Solid {
+        translation 0 -0.00955 -0.035
+        rotation -0.2510606959897038 -0.743556073282761 0.6197522834274083 1.408848498220331
+        children [
+          USE caster_wheel
+        ]
+        name "solid(1)"
+        boundingObject USE caster_wheel
+        physics USE Physics_wheel
+      }
+    }
+    DistanceSensor {
+      translation -0.04 0.01 0.04
+      rotation 0 1 0 -3.141592653589793
+      children [
+        DEF sensor Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "dsRight"
+      boundingObject USE sensor
+      physics Physics {
+        mass 0.1
+      }
+      lookupTable [
+        0 0 0
+        0.15 15 0
+      ]
+    }
+    DistanceSensor {
+      translation 0 0.01 0.04
+      rotation 0 1 0 -1.5708003061004252
+      children [
+        DEF sensor Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "dsFront"
+      boundingObject USE sensor
+      physics Physics {
+        mass 0.1
+      }
+      lookupTable [
+        0 0 0
+        0.15 15 0
+      ]
+    }
+    DistanceSensor {
+      translation 0.04 0.01 0.04
+      children [
+        DEF sensor Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "dsLeft"
+      boundingObject USE sensor
+      physics Physics {
+        mass 0.1
+      }
+      lookupTable [
+        0 0 0
+        0.15 15 0
+      ]
+    }
+    InertialUnit {
+      translation 0 0.01 0
+      rotation 0 1 0 -3.1415853071795863
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.333333 0 1
+            roughness 0.5
+            metalness 0.5
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "imu"
+    }
+  ]
+  boundingObject USE body
+  physics Physics {
+    mass 0.5
+  }
+  rotationStep -1
+  controller "new_robotController"
+}
+Solid {
+  translation 1.35 0 -1.36
+  rotation 0 1 0 3.14159
+  children [
+    DEF x_axis_long Solid {
+      translation 1 0.0799922 -1.08
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(1)"
+      boundingObject USE wallh1
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 1 0.0799922 -1.08
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(34)"
+      boundingObject USE wallh1
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 1 0.0799922 -1.08
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(35)"
+      boundingObject USE wallh1
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 1.3400000000000003 0.07999215977030939 -1.08
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(36)"
+      boundingObject USE wallh1
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.26979844505224615 0.07999802405495707 1.0800001888802901
+      rotation 0.006230122665977245 0.4184181697346179 0.9082331313090816 -2.0204897458160246e-07
+      children [
+        DEF wallh5 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.9 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(19)"
+      boundingObject USE wallh5
+      physics DEF wallhpy5 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.27 0.07996443668647793 1.26
+      children [
+        DEF wallh7 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1.26 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(29)"
+      boundingObject USE wallh7
+      physics DEF wallhpy7 Physics {
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.9000245365534023 0.07999809227335476 0.719999502232368
+      rotation 0.011482802078483659 0.8434667110293638 -0.5370587050237007 -1.097702013577573e-07
+      children [
+        DEF wallh2 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.348 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(30)"
+      boundingObject USE wallh2
+      physics DEF wallhpy2 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.719975 0.0799981 -0.37
+      rotation 0.011482802078483659 0.8434667110293638 -0.5370587050237007 -1.097702013577573e-07
+      children [
+        DEF wallh2 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.348 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(18)"
+      boundingObject USE wallh2
+      physics DEF wallhpy2 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 1.17 0.07999843195437761 1.26
+      children [
+        DEF wallh3 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.528 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(11)"
+      boundingObject USE wallh3
+      physics DEF wallhpy3 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.71 0.07999843195437761 -0.55
+      children [
+        DEF wallh4 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.708 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(10)"
+      boundingObject USE wallh4
+      physics DEF wallhpy4 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.98 0.07999215977030939 0.54
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(12)"
+      boundingObject DEF wallh1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.18 0.15 0.012
+        }
+      }
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.09000000000000008 0.07999215977030939 0.37
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(21)"
+      boundingObject DEF wallh1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.18 0.15 0.012
+        }
+      }
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.64 0.07999215977030939 0.71
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(26)"
+      boundingObject DEF wallh1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.18 0.15 0.012
+        }
+      }
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.8097782638964816 0.07999339760882028 0.5400000189310253
+      rotation -0.004779895430233232 0.014709474416457747 -0.999880384827139 1.1191359003091151e-07
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(33)"
+      boundingObject DEF wallh1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.18 0.15 0.012
+        }
+      }
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.9897812139700353 0.07999331404434765 0.9000000662973998
+      rotation -0.014011226273024827 0.05518366461221786 -0.9983779087591494 1.0452078383095693e-07
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(32)"
+      boundingObject DEF wallh1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.18 0.15 0.012
+        }
+      }
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.6297962206503769 0.07999320584329109 0.9000001885370665
+      rotation 0.013107204038451295 0.17184143212316144 -0.985037422338946 -9.604539539436651e-08
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(27)"
+      boundingObject DEF wallh1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.18 0.15 0.012
+        }
+      }
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.6298006693760803 0.07999315105562961 1.2600001924249464
+      rotation 0.013799283489711501 0.18475083264738285 -0.9826885109795828 -9.122820916151482e-08
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(28)"
+      boundingObject DEF wallh1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.18 0.15 0.012
+        }
+      }
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.2702219345360277 0.07999340762054355 0.17999997223278896
+      rotation -0.004633097431549379 0.9860122461385944 -0.16660847779424015 6.736522413179995e-07
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(22)"
+      boundingObject DEF wallh1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.18 0.15 0.012
+        }
+      }
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.17999999999999994 0.07999843195437761 -0.7200000000000002
+      children [
+        DEF wallh2 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.348 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(17)"
+      boundingObject DEF wallh2 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.348 0.15 0.012
+        }
+      }
+      physics DEF wallhpy2 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 1.08 0.07999843195437761 0.9
+      children [
+        DEF wallh2 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.348 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(8)"
+      boundingObject DEF wallh2 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.348 0.15 0.012
+        }
+      }
+      physics DEF wallhpy2 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 1.08 0.07999843195437761 1.08
+      children [
+        DEF wallh2 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.348 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(9)"
+      boundingObject DEF wallh2 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.348 0.15 0.012
+        }
+      }
+      physics DEF wallhpy2 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.44999999999999996 0.07999843195437761 -0.7200000000000002
+      children [
+        DEF wallh3 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.528 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(15)"
+      boundingObject DEF wallh3 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.528 0.15 0.012
+        }
+      }
+      physics DEF wallhpy3 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.08999999999949049 0.07999843165561897 6.759041104587027e-09
+      rotation -0.6402370508002442 0.768176086804671 -0.0014207195599514097 -7.918979452527558e-10
+      children [
+        DEF wallh3 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.528 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(20)"
+      boundingObject DEF wallh3 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.528 0.15 0.012
+        }
+      }
+      physics DEF wallhpy3 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.09000000000000008 0.07999843164349968 0.72
+      rotation 0.012199387224333268 5.988600584925811e-05 -0.9999255829135573 2.0542594401868888e-19
+      children [
+        DEF wallh3 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.528 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(24)"
+      boundingObject DEF wallh3 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.528 0.15 0.012
+        }
+      }
+      physics DEF wallhpy3 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.81 0.07999843195437761 -0.7200000000000002
+      children [
+        DEF wallh3 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.528 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(16)"
+      boundingObject DEF wallh3 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.528 0.15 0.012
+        }
+      }
+      physics DEF wallhpy3 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.72 0.07999843195437761 1.08
+      children [
+        DEF wallh4 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.708 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(31)"
+      boundingObject DEF wallh4 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.708 0.15 0.012
+        }
+      }
+      physics DEF wallhpy4 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0 0.07999843164349967 0.54
+      children [
+        DEF wallh4 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.708 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(23)"
+      boundingObject DEF wallh4 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.708 0.15 0.012
+        }
+      }
+      physics DEF wallhpy4 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 1.2570000000000001 0.07999843164349968 -0.8999999999999999
+      rotation 0.015085706274309411 0.9027715509828245 0.42985572952127865 -1.962283129869955e-18
+      children [
+        DEF wallh2 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.348 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(7)"
+      boundingObject DEF wallh2 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.348 0.15 0.012
+        }
+      }
+      physics DEF wallhpy2 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.6302219331078835 0.07999843164317268 -0.5399999272378433
+      rotation 2.2419505539972124e-07 0.9999999999999489 -2.2809452647301296e-07 -6.262133312953064e-07
+      children [
+        DEF wallh5 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.9 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(13)"
+      boundingObject DEF wallh5 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.9 0.15 0.012
+        }
+      }
+      physics DEF wallhpy5 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.26999996467639664 0.07999843195437781 0.9002203166456613
+      rotation 2.936510366779954e-10 1 -7.979946957848436e-13 9.84814909581288e-05
+      children [
+        DEF wallh5 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.9 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(25)"
+      boundingObject DEF wallh5 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.9 0.15 0.012
+        }
+      }
+      physics DEF wallhpy5 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.4497780601339354 0.07999843164349954 -0.9000000804231023
+      rotation 9.299438200359421e-12 1 -1.5614732282590846e-09 -6.296857968846781e-07
+      children [
+        DEF wallh5 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.9 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(14)"
+      boundingObject DEF wallh5 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.9 0.15 0.012
+        }
+      }
+      physics DEF wallhpy5 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.6302218848640863 0.07999843195437768 -0.899999918025034
+      rotation 6.559613776858375e-12 1 -7.296876220119126e-10 6.288227476716686e-07
+      children [
+        DEF wallh5 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.9 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(2)"
+      boundingObject DEF wallh5 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.9 0.15 0.012
+        }
+      }
+      physics DEF wallhpy5 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.45999999999999996 0.07996443668647793 -1.08
+      children [
+        DEF wallh7 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1.26 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(3)"
+      boundingObject DEF wallh7 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 1.26 0.15 0.012
+        }
+      }
+      physics DEF wallhpy7 Physics {
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.44999999999999996 0.07999215977030939 -1.08
+      children [
+        DEF wallh1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.18 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(5)"
+      boundingObject DEF wallh1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.18 0.15 0.012
+        }
+      }
+      physics DEF wallhpy1 Physics {
+        mass 0.5
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.98 0.07999843195437761 -1.08
+      children [
+        DEF wallh3 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.528 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(6)"
+      boundingObject DEF wallh3 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.528 0.15 0.012
+        }
+      }
+      physics DEF wallhpy3 Physics {
+        mass 0.1
+      }
+    }
+    DEF x_axis_long Solid {
+      translation -0.815 0.07999843164351181 -1.2600000000000002
+      rotation 0.02736666420121591 2.2779284275510263e-05 -0.9996254624466115 7.996357387776118e-20
+      children [
+        DEF wallh3 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.528 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long(4)"
+      boundingObject DEF wallh3 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.528 0.15 0.012
+        }
+      }
+      physics DEF wallhpy3 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -1.26 0.07999843195437761 -0.71
+      children [
+        DEF wallv8 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 1.428
+          }
+        }
+      ]
+      name "z_axis_long(10)"
+      boundingObject USE wallv8
+      physics DEF wallvpy8 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 1.0800000002844548 0.07999843192555255 0.17999998149370167
+      rotation -0.9648000279006211 0.26276274611551115 -0.010800250774694698 1.5636033202252266e-10
+      children [
+        DEF wallv6 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 1.068
+          }
+        }
+      ]
+      name "z_axis_long(15)"
+      boundingObject USE wallv6
+      physics DEF wallvpy6 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0.9002219398660647 0.07999843164349979 -0.8099999195768977
+      rotation -5.678949861192531e-13 0.9999999999999999 1.3728959082450398e-09 -1.9308714461173633e-05
+      children [
+        DEF wallv1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.18
+          }
+        }
+      ]
+      name "z_axis_long"
+      boundingObject USE wallv1
+      physics DEF wallvpy1 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -0.72 0.07999843195437761 0.17999999999999994
+      children [
+        DEF wallv4 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.708
+          }
+        }
+      ]
+      name "z_axis_long(28)"
+      boundingObject USE wallv4
+      physics DEF wallvpy4 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0 0.07999843195437761 -0.27
+      children [
+        DEF wallv3 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.528
+          }
+        }
+      ]
+      name "z_axis_long(11)"
+      boundingObject USE wallv3
+      physics DEF wallvpy3 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 1.08 0.07999843164351181 -0.7200000000000002
+      rotation 0.9980087543575012 0.05380737442636646 0.03291341190349985 -8.586424259216374e-19
+      children [
+        DEF wallv2 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.348
+          }
+        }
+      ]
+      name "z_axis_long(17)"
+      boundingObject USE wallv2
+      physics DEF wallvpy2 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0.9100000070184078 0.07999843164361423 -0.08999999046136886
+      rotation -5.60848285294688e-05 0.9999999981031522 2.5459528306400835e-05 -3.117080051276073e-09
+      children [
+        DEF wallv5 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.888
+          }
+        }
+      ]
+      name "z_axis_long(5)"
+      boundingObject USE wallv5
+      physics DEF wallvpy5 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -1.080218785996498 0.07999727581921605 0.26999993370272857
+      rotation -0.005293460033427483 0.9999859895168788 7.129040730000212e-06 -0.0001378369074814519
+      children [
+        DEF wallv11 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 1.968
+          }
+        }
+      ]
+      name "z_axis_long(12)"
+      boundingObject USE wallv11
+      physics DEF wallvpy11 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0.7205801280022732 0.0799971378531401 0.5399999464313971
+      rotation 0.0025393731217248283 0.9999967757112765 1.2296327768426142e-05 0.000321297714427352
+      children [
+        DEF wallv10 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 1.788
+          }
+        }
+      ]
+      name "z_axis_long(7)"
+      boundingObject USE wallv10
+      physics DEF wallvpy10 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -0.18000000000008143 0.07999843164344062 -0.17999999999992822
+      rotation -0.6472691285175386 0.7621199832375749 0.01469035119065978 -2.045816889072694e-14
+      children [
+        DEF wallv6 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 1.068
+          }
+        }
+      ]
+      name "z_axis_long(14)"
+      boundingObject DEF wallv6 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 1.068
+        }
+      }
+      physics DEF wallvpy6 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0.54 0.07999843195437761 0.17999999999999994
+      children [
+        DEF wallv6 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 1.068
+          }
+        }
+      ]
+      name "z_axis_long(21)"
+      boundingObject DEF wallv6 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 1.068
+        }
+      }
+      physics DEF wallvpy6 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 1.260000033131098 0.07999843164349958 -1.3498951633146823
+      rotation -3.5607788189478103e-07 0.9999999999999365 -1.0538398825681301e-10 -2.7914771772379383e-09
+      children [
+        DEF wallv1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.18
+          }
+        }
+      ]
+      name "z_axis_long(29)"
+      boundingObject DEF wallv1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.18
+        }
+      }
+      physics DEF wallvpy1 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0.17977805993208862 0.07999718780972478 0.27000002254775235
+      rotation -0.0056173625538441735 0.9999842212567649 -4.9753794276467375e-05 1.930907319209426e-05
+      children [
+        DEF wallv1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.18
+          }
+        }
+      ]
+      name "z_axis_long(22)"
+      boundingObject DEF wallv1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.18
+        }
+      }
+      physics DEF wallvpy1 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0 0.07999843195437761 0.27
+      children [
+        DEF wallv1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.18
+          }
+        }
+      ]
+      name "z_axis_long(23)"
+      boundingObject DEF wallv1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.18
+        }
+      }
+      physics DEF wallvpy1 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -0.7200000353236033 0.07999843195437742 0.8097796833543386
+      rotation -1.3599328304461847e-08 0.9999999999999999 -9.412665392871637e-12 6.578155424836176e-07
+      children [
+        DEF wallv1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.18
+          }
+        }
+      ]
+      name "z_axis_long(25)"
+      boundingObject DEF wallv1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.18
+        }
+      }
+      physics DEF wallvpy1 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -0.9100000239461732 0.07999843164350755 1.3498923020568383
+      rotation 2.4677468112056293e-07 0.9999999999999688 3.8854513576853915e-08 -2.01394907306207e-09
+      children [
+        DEF wallv1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.18
+          }
+        }
+      ]
+      name "z_axis_long(26)"
+      boundingObject DEF wallv1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.18
+        }
+      }
+      physics DEF wallvpy1 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0.17977805987370754 0.0799984316437121 -0.6300000823007879
+      rotation 1.0245391232128478e-10 1 1.2492300128334445e-10 -1.930873583530521e-05
+      children [
+        DEF wallv1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.18
+          }
+        }
+      ]
+      name "z_axis_long(13)"
+      boundingObject DEF wallv1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.18
+        }
+      }
+      physics DEF wallvpy1 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -0.54 0.07999843195437761 0.15999999999999992
+      children [
+        DEF wallv6 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 1.068
+          }
+        }
+      ]
+      name "z_axis_long(18)"
+      boundingObject DEF wallv6 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 1.068
+        }
+      }
+      physics DEF wallvpy6 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -0.9002217360695995 0.07999719225555688 0.3599999810690103
+      rotation -0.005602799618390221 0.9999843039037903 2.4134791279449614e-05 -3.9913060170722004e-05
+      children [
+        DEF wallv6 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 1.068
+          }
+        }
+      ]
+      name "z_axis_long(27)"
+      boundingObject DEF wallv6 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 1.068
+        }
+      }
+      physics DEF wallvpy6 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0.8999999999999999 0.07999843195437761 1.17
+      children [
+        DEF wallv1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.18
+          }
+        }
+      ]
+      name "z_axis_long(9)"
+      boundingObject DEF wallv1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.18
+        }
+      }
+      physics DEF wallvpy1 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -0.17977811513591324 0.07999843195437754 -0.9900000819749657
+      rotation 7.618927056505135e-14 0.9999999999999999 4.993586293806653e-10 1.9303928850629293e-05
+      children [
+        DEF wallv1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.18
+          }
+        }
+      ]
+      name "z_axis_long(1)"
+      boundingObject DEF wallv1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.18
+        }
+      }
+      physics DEF wallvpy1 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 1.2600000000000002 0.07999843195437761 0.18999999999999995
+      children [
+        DEF wallv10 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 1.788
+          }
+        }
+      ]
+      name "z_axis_long(8)"
+      boundingObject DEF wallv10 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 1.788
+        }
+      }
+      physics DEF wallvpy10 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -1.26 0.07999843195437761 0.64
+      children [
+        DEF wallv5 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.888
+          }
+        }
+      ]
+      name "z_axis_long(6)"
+      boundingObject DEF wallv5 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.888
+        }
+      }
+      physics DEF wallvpy5 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -0.355 0.07999843195437761 -1.2600000000000002
+      children [
+        DEF wallv2 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.348
+          }
+        }
+      ]
+      name "z_axis_long(2)"
+      boundingObject DEF wallv2 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.348
+        }
+      }
+      physics DEF wallvpy2 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0.1800000000005042 0.07999843163156459 -0.18000000675921468
+      rotation 0.9999999999999998 1.8599819083121067e-08 -8.06115603714168e-09 4.692315557290379e-06
+      children [
+        DEF wallv2 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.348
+          }
+        }
+      ]
+      name "z_axis_long(19)"
+      boundingObject DEF wallv2 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.348
+        }
+      }
+      physics DEF wallvpy2 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0.3600000000000869 0.07999843164341087 -0.17999999999989869
+      rotation 1 3.3518187708057238e-09 -7.80715069107329e-10 4.692820436625285e-06
+      children [
+        DEF wallv2 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.348
+          }
+        }
+      ]
+      name "z_axis_long(20)"
+      boundingObject DEF wallv2 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.348
+        }
+      }
+      physics DEF wallvpy2 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation 0.3600000055658339 0.07999842607766916 0.5400000052193931
+      rotation 0.9999999088552555 -0.00041682367169889917 9.245273047208315e-05 4.690459089896452e-06
+      children [
+        DEF wallv4 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.708
+          }
+        }
+      ]
+      name "z_axis_long(24)"
+      boundingObject DEF wallv4 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.708
+        }
+      }
+      physics DEF wallvpy4 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -0.36 0.07999843164349968 0.17999999999999994
+      rotation -0.19535439936112378 0.9807302720814406 0.0021890804731855584 -2.138036056207888e-18
+      children [
+        DEF wallv8 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 1.428
+          }
+        }
+      ]
+      name "z_axis_long(16)"
+      boundingObject DEF wallv8 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 1.428
+        }
+      }
+      physics DEF wallvpy8 Physics {
+        mass 0.1
+      }
+    }
+    Solid {
+      translation 0 0.0799984 1.437
+      children [
+        DEF wallh16 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 2.868 0.15 0.006
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject DEF wallh16 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 2.868 0.15 0.006
+        }
+      }
+      physics DEF wallhpy16 Physics {
+        mass 0.1
+        centerOfMass [
+          0 0 0
+        ]
+      }
+    }
+    Solid {
+      translation -1.437 0.0799843 0
+      children [
+        DEF wallv16 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.006 0.15 2.88
+          }
+        }
+      ]
+      name "solid(3)"
+      boundingObject DEF wallv16 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.006 0.15 2.88
+        }
+      }
+      physics DEF wallvpy16 Physics {
+        mass 1
+      }
+    }
+    Solid {
+      translation 1.437 0.0799843 0
+      children [
+        DEF wallv16 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.006 0.15 2.88
+          }
+        }
+      ]
+      name "solid(2)"
+      boundingObject USE wallv16
+      physics DEF wallvpy16 Physics {
+        density 54048
+        mass 1
+      }
+    }
+    Solid {
+      translation 0 0.0799984 -1.437
+      rotation 0 1 0 0.00013209403169241153
+      children [
+        DEF wallh16 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 2.868 0.15 0.006
+          }
+        }
+      ]
+      boundingObject USE wallh16
+      physics DEF wallhpy16 Physics {
+        mass 0.1
+        centerOfMass [
+          0 0 0
+        ]
+      }
+    }
+    DEF x_axis_long Solid {
+      translation 0.528 0.07999843195437761 -1.2650000000000001
+      children [
+        DEF wallh8 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1.44 0.15 0.012
+          }
+        }
+      ]
+      name "x_axis_long"
+      boundingObject USE wallh8
+      physics DEF wallhpy8 Physics {
+        mass 0.1
+      }
+    }
+    DEF z_axis_long Solid {
+      translation -0.539778 0.0799984 -1.17
+      rotation 7.618927056505135e-14 0.9999999999999999 4.993586293806653e-10 1.9303928850629293e-05
+      children [
+        DEF wallv1 Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/desktop_wood.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 0.012 0.15 0.18
+          }
+        }
+      ]
+      name "z_axis_long(3)"
+      boundingObject DEF wallv1 Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/desktop_wood.jpg"
+            ]
+          }
+        }
+        geometry Box {
+          size 0.012 0.15 0.18
+        }
+      }
+      physics DEF wallvpy1 Physics {
+        mass 0.1
+      }
+    }
+    Floor {
+      size 2.88 2.88
+      tileSize 0.36 0.36
+      appearance Parquetry {
+        type "dark strip"
+        colorOverride 0 0 0.498039
+      }
+    }
+  ]
+  name "Maze"
+}
